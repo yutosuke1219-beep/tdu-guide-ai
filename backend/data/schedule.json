@@ -1,8 +1,32 @@
 [
     {
+        "name": "入学式",
+        "date": "2026-04-02",
+        "type": "ceremony",
+        "note": "入学式"
+    },
+    {
+        "name": "前期授業開始日",
+        "date": "2026-04-10",
+        "type": "class_start",
+        "note": "前期授業開始"
+    },
+    {
+        "name": "合同体育祭",
+        "date": "2026-05-24",
+        "type": "event",
+        "note": "体育祭"
+    },
+    {
         "name": "鳩山祭",
         "date": "2026-10-31",
         "type": "event",
         "note": "休講"
+    },
+    {
+        "name": "卒業式",
+        "date": "2027-03-19",
+        "type": "ceremony",
+        "note": "卒業式"
     }
 ]
