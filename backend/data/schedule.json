@@ -80,7 +80,7 @@
         "name": "学期末試験期間開始",
         "start_date": "2026-07-09",
         "end_date": "2026-07-22",
-        "type": "test-period",
+        "type": "test_period",
         "note": "鳩山キャンパス"
     },
     {
@@ -250,8 +250,8 @@
         "name": "成人の日",
         "start_date": "2027-01-11",
         "end_date": "2027-01-11",
-        "type": "ceremony",
-        "note": ""
+        "type": "holiday_day",
+        "note": "休日"
     },
     {
         "name": "特定科目試験日",

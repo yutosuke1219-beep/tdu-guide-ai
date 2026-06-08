@@ -76,10 +76,9 @@ def chat(message: str):
     results = []
 
     for event in schedule:
-        
         note = event.get("note", "")
 
-        if event["name"] in message or (note and note in message):
+    if event["name"] in message or (note and note in message):
             results.append(event)
 
     if not results:
@@ -90,7 +89,10 @@ def chat(message: str):
 
     event = results[0]
 
-    answer = f"{event['name']}は{event['date']}です。"
+    if event["start_date"] == event["end_date"]:
+        answer = f"{event['name']}は{event['start_date']}です。"
+    else:
+        answer = f"{event['name']}は{event['start_date']}から{event['end_date']}までです。"
 
     if event.get("note"):
         answer += f" 備考：{event['note']}。"
