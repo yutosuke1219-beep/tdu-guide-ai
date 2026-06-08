@@ -1,7 +1,16 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import json
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 with open("data/schedule.json", "r", encoding="utf-8") as f:
     schedule = json.load(f)
@@ -72,13 +81,26 @@ def chat(message: str):
             }
         
         
-    # 年間予定関連
+        # 年間予定関連
     results = []
+
+    keyword = message
+    keyword = keyword.replace("はいつ？", "")
+    keyword = keyword.replace("はいつ", "")
+    keyword = keyword.replace("いつ？", "")
+    keyword = keyword.replace("いつ", "")
+    keyword = keyword.replace("？", "")
+    keyword = keyword.strip()
 
     for event in schedule:
         note = event.get("note", "")
 
-    if event["name"] in message or (note and note in message):
+        if (
+            keyword in event["name"]
+            or event["name"] in message
+            or (note and keyword in note)
+            or (note and note in message)
+        ):
             results.append(event)
 
     if not results:
@@ -87,15 +109,20 @@ def chat(message: str):
             "answer": "関連する予定は見つかりませんでした。"
         }
 
-    event = results[0]
+    answers = []
 
-    if event["start_date"] == event["end_date"]:
-        answer = f"{event['name']}は{event['start_date']}です。"
-    else:
-        answer = f"{event['name']}は{event['start_date']}から{event['end_date']}までです。"
+    for event in results:
+        if event["start_date"] == event["end_date"]:
+            text = f"{event['name']}は{event['start_date']}です。"
+        else:
+            text = f"{event['name']}は{event['start_date']}から{event['end_date']}までです。"
 
-    if event.get("note"):
-        answer += f" 備考：{event['note']}。"
+        if event.get("note"):
+            text += f" 備考：{event['note']}。"
+
+        answers.append(text)
+
+    answer = "\n" .join(answers)
 
     return {
         "message": message,
