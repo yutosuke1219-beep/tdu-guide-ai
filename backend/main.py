@@ -6,6 +6,9 @@ app = FastAPI()
 with open("data/schedule.json", "r", encoding="utf-8") as f:
     schedule = json.load(f)
 
+with open("data/graduation.json", "r", encoding="utf-8") as f:
+    graduation = json.load(f)
+
 @app.get("/")
 def root():
     return {"message": "TDU Guide AI"}
@@ -29,6 +32,16 @@ def search_schedule(keyword: str):
 
 @app.get("/chat")
 def chat(message: str):
+
+    # 卒業関連
+    if "卒業" in message:
+        item = graduation[0]
+
+        return {
+            "message": message,
+            "answer": f"卒業に必要な単位数は{item['value']}単位です。"
+        }
+
     results = []
 
     for event in schedule:
@@ -53,3 +66,7 @@ def chat(message: str):
         "references": results,
         "answer": answer
     }
+
+@app.get("/graduation")
+def get_graduation():
+    return graduation
