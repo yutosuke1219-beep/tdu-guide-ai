@@ -7,5 +7,25 @@
 <body>
     <h1>TDU Guide AI</h1>
     <p>東京電機大学向け学生要覧AIシステム</p>
+
+    <input type="text" id="question" placeholder="鳩山祭はいつ？">
+    <button onclick="sendMessage()">送信</button>
+
+    <div id="answer">ここに回答が表示されます</div>
+
+    <script>
+        async function sendMessage() {
+            const question = document.getElementById("question").value;
+            const answerDiv = document.getElementById("answer");
+
+            const response = await fetch(
+                "http://127.0.0.1:8000/chat?message=" + encodeURIComponent(question)
+            );
+
+            const data = await response.json();
+
+            answerDiv.textContent = data.answer;
+        }
+    </script>
 </body>
 </html>
