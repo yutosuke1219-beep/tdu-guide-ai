@@ -1,7 +1,14 @@
 [
   {
     "category": "卒業単位",
-    "value": 124,
-    "description": "卒業に必要な単位数"
+    "value": 124
+  },
+  {
+    "category": "専門科目",
+    "value": 70
+  },
+  {
+    "category": "一般教養",
+    "value": 20
   }
 ]
