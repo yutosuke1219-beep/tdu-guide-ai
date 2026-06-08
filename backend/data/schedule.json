@@ -6,27 +6,45 @@
         "note": "入学式"
     },
     {
-        "name": "前期授業開始日",
+        "name": "オリエンテーション",
+        "date": "2026-04-03",
+        "type": "orientation",
+        "note": "2026-04-09まで"
+    },
+    {
+        "name": "前期授業開始",
         "date": "2026-04-10",
         "type": "class_start",
-        "note": "前期授業開始"
+        "note": "前期"
     },
     {
         "name": "合同体育祭",
         "date": "2026-05-24",
         "type": "event",
-        "note": "体育祭"
+        "note": "休講"
+    },
+    {
+        "name": "オープンキャンパス",
+        "date": "2026-06-14",
+        "type": "event",
+        "note": "鳩山キャンパス"
     },
     {
         "name": "鳩山祭",
         "date": "2026-10-31",
-        "type": "event",
+        "type": "festival",
         "note": "休講"
+    },
+    {
+        "name": "前期成績発表",
+        "date": "2026-09-23",
+        "type": "grade",
+        "note": ""
     },
     {
         "name": "卒業式",
         "date": "2027-03-19",
         "type": "ceremony",
-        "note": "卒業式"
+        "note": ""
     }
 ]
