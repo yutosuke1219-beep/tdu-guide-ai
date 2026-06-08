@@ -28,7 +28,8 @@ def search_schedule(keyword: str):
     results = []
 
     for event in schedule:
-        if keyword in event["name"] or keyword in event.get("note", ""):
+        note = event.get("note", "")
+        if keyword in event["name"] or (note and keyword in note):
             results.append(event)
 
     return {
@@ -40,7 +41,7 @@ def search_schedule(keyword: str):
 def chat(message: str):
 
     # 卒業関連
-    if "卒業" in message:
+    if "卒業単位" in message:
         item = graduation[0]
 
         return {
@@ -75,7 +76,10 @@ def chat(message: str):
     results = []
 
     for event in schedule:
-        if event["name"] in message or event.get("note", "") in message:
+        
+        note = event.get("note", "")
+
+        if event["name"] in message or (note and note in message):
             results.append(event)
 
     if not results:
