@@ -24,6 +24,9 @@ with open("data/courses.json", "r", encoding="utf-8") as f:
 with open("data/certificate.json", "r", encoding="utf-8") as f:
     certificates = json.load(f)
 
+with open("data/student_life.json", "r", encoding="utf-8") as f:
+    student_life = json.load(f)
+
 @app.get("/")
 def root():
     return {"message": "TDU Guide AI"}
@@ -78,6 +81,17 @@ def chat(message: str):
             return {
                 "message": message,
                 "answer": f"{course['name']}は{course['category']}科目です。"
+            }
+        
+        # 学生生活関連
+    for item in student_life:
+        if (
+            item["title"] in message
+            or any(keyword in message for keyword in item["keywords"])
+        ):
+            return {
+                "message": message,
+                "answer": item["answer"]
             }
         
         
@@ -141,3 +155,8 @@ def get_courses():
 @app.get("/certificates")
 def get_certificates():
     return certificates
+
+@app.get("/student-life")
+def get_student_life():
+    return student_life
+
