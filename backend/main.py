@@ -12,28 +12,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# JSON読み込み
 with open("data/schedule.json", "r", encoding="utf-8") as f:
     schedule = json.load(f)
 
-with open("data/graduation.json", "r", encoding="utf-8") as f:
-    graduation = json.load(f)
-
-with open("data/courses.json", "r", encoding="utf-8") as f:
-    courses = json.load(f)
-
-with open("data/certificate.json", "r", encoding="utf-8") as f:
-    certificates = json.load(f)
-
 with open("data/student_life.json", "r", encoding="utf-8") as f:
     student_life = json.load(f)
+
 
 @app.get("/")
 def root():
     return {"message": "TDU Guide AI"}
 
+
 @app.get("/schedule")
 def get_schedule():
     return schedule
+
+
+@app.get("/student-life")
+def get_student_life():
+    return student_life
+
 
 @app.get("/search")
 def search_schedule(keyword: str):
@@ -49,41 +49,13 @@ def search_schedule(keyword: str):
         "results": results
     }
 
+
 @app.get("/chat")
 def chat(message: str):
 
-    # 卒業関連
-    if "卒業単位" in message:
-        item = graduation[0]
-
-        return {
-            "message": message,
-            "answer": f"卒業に必要な単位数は{item['value']}単位です。"
-        }
-
-    # 証明書関連
-    if "証明書" in message:
-        for item in certificates:
-            if item["name"] in message:
-                return {
-                    "message": message,
-                    "answer": f"{item['name']}は{item['place']}で発行できます。"
-                }
-
-        return {
-            "message": message,
-            "answer": "証明書に関する情報はありますが、該当する証明書名が見つかりませんでした。"
-        }
-
-    # 科目関連
-    for course in courses:
-        if course["name"] in message:
-            return {
-                "message": message,
-                "answer": f"{course['name']}は{course['category']}科目です。"
-            }
-        
-        # 学生生活関連
+    # ==========================
+    # 学生生活関連
+    # ==========================
     for item in student_life:
         if (
             item["title"] in message
@@ -93,9 +65,10 @@ def chat(message: str):
                 "message": message,
                 "answer": item["answer"]
             }
-        
-        
-        # 年間予定関連
+
+    # ==========================
+    # 年間予定関連
+    # ==========================
     results = []
 
     keyword = message
@@ -120,7 +93,7 @@ def chat(message: str):
     if not results:
         return {
             "message": message,
-            "answer": "関連する予定は見つかりませんでした。"
+            "answer": "関連する情報は見つかりませんでした。"
         }
 
     answers = []
@@ -136,27 +109,10 @@ def chat(message: str):
 
         answers.append(text)
 
-    answer = "\n" .join(answers)
+    answer = "\n".join(answers)
 
     return {
         "message": message,
         "references": results,
         "answer": answer
     }
-
-@app.get("/graduation")
-def get_graduation():
-    return graduation
-
-@app.get("/courses")
-def get_courses():
-    return courses
-
-@app.get("/certificates")
-def get_certificates():
-    return certificates
-
-@app.get("/student-life")
-def get_student_life():
-    return student_life
-
