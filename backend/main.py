@@ -19,6 +19,12 @@ with open("data/schedule.json", "r", encoding="utf-8") as f:
 with open("data/student_life.json", "r", encoding="utf-8") as f:
     student_life = json.load(f)
 
+with open("data/academic/human.json", "r", encoding="utf-8") as f:
+    human = json.load(f)
+
+with open("data/academic/english.json", "r", encoding="utf-8") as f:
+    english = json.load(f)
+
 
 @app.get("/")
 def root():
@@ -33,6 +39,16 @@ def get_schedule():
 @app.get("/student-life")
 def get_student_life():
     return student_life
+
+@app.get("/human")
+def get_human():
+    return human
+
+@app.get("/english")
+def get_english():
+    return english
+
+
 
 
 @app.get("/search")
@@ -64,6 +80,28 @@ def chat(message: str):
             return {
                 "message": message,
                 "answer": item["answer"]
+            }
+        
+    # 人間形成科目関連
+    for subject in human:
+        if (
+            subject["name"] in message
+            or subject.get("field", "") in message
+            or subject.get("subject_group", "") in message
+        ):
+            return {
+                "message": message,
+                "answer": f"{subject['name']}は{subject['year']}年次配当の{subject['required_type']}科目で、{subject['credits']}単位です。授業形態は{subject['class_type']}です。"
+            }
+        
+    # ==========================
+    # 英語科目関連
+    # ==========================
+    for subject in english:
+        if subject["name"] in message:
+            return {
+                "message": message,
+                "answer": f"{subject['name']}は{subject['year']}年次配当の{subject['required_type']}科目で、{subject['credits']}単位です。授業形態は{subject['class_type']}です。"
             }
 
     # ==========================
