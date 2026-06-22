@@ -1,0 +1,144 @@
+{
+  "department": "情報システムデザイン学系",
+  "department_code": "RD",
+  "curriculum_year": 2024,
+
+  "progression_requirements": {
+    "year1_to_year2": {
+      "required_credits": 30,
+      "description": "1年次配当科目から30単位以上修得"
+    },
+
+    "year2_to_year3": {
+      "required_credits": 0,
+      "description": "進級条件なし"
+    },
+
+    "year3_to_year4": {
+      "required_credits": 104,
+
+      "category_requirements": {
+        "human": {
+          "name": "人間形成",
+          "required": 12,
+          "graduation": 16
+        },
+
+        "english": {
+          "name": "英語",
+          "required": 6,
+          "graduation": 8
+        },
+
+        "engineering_ethics": {
+          "name": "技術者倫理",
+          "required": 2,
+          "graduation": 2
+        },
+
+        "mathematics": {
+          "name": "数学",
+          "required": 4,
+          "graduation": 6
+        },
+
+        "science": {
+          "name": "自然科学技術",
+          "required": 6,
+          "graduation": 8
+        },
+
+        "information": {
+          "name": "情報",
+          "required": 2,
+          "graduation": 4
+        }
+      },
+
+      "major_course_same_department": {
+        "common_subjects": {
+          "required": 23,
+          "graduation": 34
+        },
+
+        "main_course": {
+          "required": 18,
+          "graduation": 26
+        },
+
+        "sub_course": {
+          "required": 5,
+          "graduation": 8
+        }
+      },
+
+      "sub_course_other_department": {
+        "common_subjects": {
+          "required": 19,
+          "graduation": 28
+        },
+
+        "main_course": {
+          "required": 18,
+          "graduation": 26
+        },
+
+        "designated_subjects": {
+          "required": 9,
+          "graduation": 14
+        }
+      }
+    }
+  },
+
+  "required_courses": {
+    "D1": [
+      "情報システムデザイン概論",
+      "情報学基礎実習",
+      "コンピュータプログラミングⅠ・同演習",
+      "情報学ゼミ",
+      "情報システム演習Ⅰ",
+      "情報システム演習Ⅱ",
+      "情報システム総合演習"
+    ],
+
+    "D2": [
+      "情報システムデザイン概論",
+      "情報学基礎実習",
+      "コンピュータプログラミングⅠ・同演習",
+      "情報学ゼミ",
+      "情報システム演習Ⅰ",
+      "情報システム演習Ⅱ",
+      "情報システム総合演習"
+    ],
+
+    "D3": [
+      "情報システムデザイン概論",
+      "情報学基礎実習",
+      "コンピュータプログラミングⅠ・同演習",
+      "情報学ゼミ",
+      "情報デザイン演習Ⅰ",
+      "情報デザイン演習Ⅱ",
+      "情報デザイン総合演習"
+    ],
+
+    "D4": [
+      "情報システムデザイン概論",
+      "情報学基礎実習",
+      "コンピュータプログラミングⅠ・同演習",
+      "情報学ゼミ",
+      "情報デザイン演習Ⅰ",
+      "情報デザイン演習Ⅱ",
+      "情報デザイン総合演習"
+    ]
+  },
+
+  "special_rules": [
+    {
+      "subject": "科学技術概論B・C・D",
+      "replacement_subject": "科学技術概論A",
+      "credits": 6,
+      "year": 3
+    }
+  ]
+}
