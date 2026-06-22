@@ -25,6 +25,28 @@ with open("data/academic/human.json", "r", encoding="utf-8") as f:
 with open("data/academic/english.json", "r", encoding="utf-8") as f:
     english = json.load(f)
 
+with open("data/academic/common.json", "r", encoding="utf-8") as f:
+    common = json.load(f)
+
+with open("data/academic/expert_ex.json", "r", encoding="utf-8") as f:
+    expert_ex = json.load(f)
+
+with open("data/academic/expert.json", "r", encoding="utf-8") as f:
+    expert = json.load(f)
+
+with open("data/academic/rd.json", "r", encoding="utf-8") as f:
+    rd = json.load(f)
+
+with open("data/academic/rd_cond.json", "r", encoding="utf-8") as f:
+    rd_cond = json.load(f)
+
+with open("data/academic/rd_ex.json", "r", encoding="utf-8") as f:
+    rd_ex = json.load(f)
+
+with open("data/academic/rd_ex2.json", "r", encoding="utf-8") as f:
+    rd_ex2 = json.load(f)
+
+
 
 @app.get("/")
 def root():
@@ -48,8 +70,33 @@ def get_human():
 def get_english():
     return english
 
+@app.get("/common")
+def get_common():
+    return common
 
+@app.get("/expert-ex")
+def get_expert_ex():
+    return expert_ex
 
+@app.get("/expert")
+def get_expert():
+    return expert
+
+@app.get("/rd")
+def get_rd():
+    return rd
+
+@app.get("/rd-cond")
+def get_rd_cond():
+    return rd_cond
+
+@app.get("/rd-ex")
+def get_rd_ex():
+    return rd_ex
+
+@app.get("/rd-ex2")
+def get_rd_ex2():
+    return rd_ex2
 
 @app.get("/search")
 def search_schedule(keyword: str):
@@ -104,6 +151,93 @@ def chat(message: str):
                 "answer": f"{subject['name']}は{subject['year']}年次配当の{subject['required_type']}科目で、{subject['credits']}単位です。授業形態は{subject['class_type']}です。"
             }
 
+        # ==========================
+    # 共通教育説明関連
+    # ==========================
+    for item in common:
+        if (
+            item["title"] in message
+            or any(keyword in message for keyword in item["keywords"])
+        ):
+            return {
+                "message": message,
+                "answer": item["answer"]
+            }
+
+    # ==========================
+    # 専門基礎説明関連
+    # ==========================
+    for item in expert_ex:
+        if (
+            item["title"] in message
+            or any(keyword in message for keyword in item["keywords"])
+        ):
+            return {
+                "message": message,
+                "answer": item["answer"]
+            }
+
+    # ==========================
+    # 専門基礎科目関連
+    # ==========================
+    for subject in expert:
+        if subject["name"] in message:
+            return {
+                "message": message,
+                "answer": f"{subject['name']}は{subject['year']}年次配当の{subject['required_type']}科目で、{subject['credits']}単位です。授業形態は{subject['class_type']}です。"
+            }
+        
+    # ==========================
+    # RD学系説明
+    # ==========================
+    for item in rd_ex:
+        if (
+            item["title"] in message
+            or any(keyword in message for keyword in item["keywords"])
+        ):
+            return {
+                "message": message,
+                "answer": item["answer"]
+            }
+    # ==========================
+    # RD履修モデル説明
+    # ==========================
+    for item in rd_ex2:
+        if (
+            item["title"] in message
+            or any(keyword in message for keyword in item["keywords"])
+        ):
+            return {
+                "message": message,
+                "answer": item["answer"]
+            }
+        
+        # ==========================
+    # RD科目検索
+    # ==========================
+    for subject in rd:
+        if (
+            subject["name"] in message
+            or subject.get("field", "") in message
+        ):
+            return {
+                "message": message,
+                "answer": f"{subject['name']}は{subject['year']}年次配当の{subject['required_type']}科目で、{subject['credits']}単位です。授業形態は{subject['class_type']}です。"
+            }
+        
+        # ==========================
+    # RD進級条件
+    # ==========================
+    for item in rd_cond:
+        if (
+            item["title"] in message
+            or any(keyword in message for keyword in item["keywords"])
+        ):
+            return {
+                "message": message,
+                "answer": item["answer"]
+            }
+    
     # ==========================
     # 年間予定関連
     # ==========================
